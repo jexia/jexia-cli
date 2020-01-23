@@ -3,6 +3,11 @@ import pytest
 from tests.cli import run_cmd
 
 
+def test_placeholder():
+    # TODO: remove this fake unit test which avoid exit code 5 in CI
+    pass
+
+
 @pytest.mark.integration
 def test_projects():
     # get current projects

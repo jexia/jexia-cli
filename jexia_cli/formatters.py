@@ -5,4 +5,4 @@ from datetime import datetime
 
 
 def format_datetime(val):
-    return str(datetime.fromtimestamp(val))
+    return str(datetime.fromtimestamp(int(val)))
