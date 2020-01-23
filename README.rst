@@ -2,11 +2,11 @@
 Jexia CLI
 =========
 
-.. image:: https://circleci.com/gh/jexia/jexia-cli-python/tree/master.svg?style=svg
-    :target: https://circleci.com/gh/jexia/jexia-cli-python/tree/master
+.. image:: https://circleci.com/gh/jexia/jexia-cli/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/jexia/jexia-cli/tree/master
     :alt: Build status
-.. image:: https://coveralls.io/repos/jexia/jexia-cli-python/badge.svg?branch=master
-    :target: https://coveralls.io/r/jexia/jexia-cli-python?branch=master
+.. image:: https://coveralls.io/repos/jexia/jexia-cli/badge.svg?branch=master
+    :target: https://coveralls.io/r/jexia/jexia-cli?branch=master
     :alt: Code coverage
 .. image:: https://img.shields.io/pypi/l/jexia-cli.svg
     :target: https://pypi.org/project/jexia-cli
