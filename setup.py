@@ -4,7 +4,6 @@ import re
 from setuptools import setup, find_packages
 
 
-ROOT_DIR = path.abspath(path.dirname(__file__))
 PYPI_RST_FILTERS = (
     # Replace Python crossreferences by simple monospace
     (r':(?:class|func|meth|mod|attr|obj|exc|data|const):`~(?:\w+\.)*(\w+)`', r'``\1``'),
@@ -38,7 +37,7 @@ def rst(filename):
 def pip(filename):
     '''Parse pip reqs file and transform it to setuptools requirements.'''
     requirements = []
-    for line in open(path.join(ROOT_DIR, 'requirements', '{0}.txt'.format(filename))):
+    for line in open(path.join('requirements', '{0}.txt'.format(filename))):
         line = line.strip()
         if not line or '://' in line or line.startswith('#'):
             continue
