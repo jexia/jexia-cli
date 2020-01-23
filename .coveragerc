@@ -1,0 +1,5 @@
+[run]
+omit = 
+    */__init__.py
+source = ./jexia_cli
+data_file = .coverage
