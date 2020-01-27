@@ -7,6 +7,7 @@ import logging
 
 from cliff.app import App
 from cliff.commandmanager import CommandManager
+from cliff.complete import CompleteCommand
 
 from jexia_cli import __version__
 from jexia_cli.constants import (DEFAULT_CONFIG_PATH, DEFAULT_DOMAIN)
@@ -44,15 +45,17 @@ class CLI(App):
         )
         return parser
 
+    def initialize_app(self, argv):
+        self.command_manager.add_command('complete', CompleteCommand)
+        self.client = HTTPClient(domain=self.options.domain,
+                                 ssl_check=not self.options.insecure)
+        self.config = load_config(self.options.config)
+        self.context = dict()
+
     def configure_logging(self):
         if self.options.debug:
             self.options.verbose_level = 2
         super(CLI, self).configure_logging()
-
-    def prepare_to_run_command(self, cmd):
-        self.client = HTTPClient(domain=self.options.domain,
-                                 ssl_check=not self.options.insecure)
-        self.config = load_config(self.options.config)
 
 
 def main(argv=sys.argv[1:]):

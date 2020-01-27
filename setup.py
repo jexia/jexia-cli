@@ -98,10 +98,18 @@ setup(
         ],
         'jexia_cli.commands': [
             'login = jexia_cli.commands.login:Login',
+            'use = jexia_cli.commands.use:Use',
             'project_list = jexia_cli.commands.projects:List',
             'project_create = jexia_cli.commands.projects:Create',
             'project_show = jexia_cli.commands.projects:Show',
             'project_delete = jexia_cli.commands.projects:Delete',
+            'dataset_list = jexia_cli.commands.datasets:List',
+            'dataset_create = jexia_cli.commands.datasets:Create',
+            'dataset_delete = jexia_cli.commands.datasets:Delete',
+            'dataset_field_list = jexia_cli.commands.datasets_fields:List',
+            'dataset_field_create = jexia_cli.commands.datasets_fields:Create',
+            'dataset_field_update = jexia_cli.commands.datasets_fields:Update',
+            'dataset_field_delete = jexia_cli.commands.datasets_fields:Delete',
         ]
     },
 )

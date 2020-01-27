@@ -89,6 +89,7 @@ class Show(ShowCommand):
         parser.add_argument(
             'project',
             metavar='PROJECT_ID',
+            help='UUID of project which should be shown',
         )
         return parser
 
@@ -109,6 +110,7 @@ class Delete(CLICommand):
         parser.add_argument(
             'project',
             metavar="PROJECT_ID",
+            help='UUID of project which should be deleted',
         )
         parser.add_argument(
             '--yes-i-really-want-to-delete',

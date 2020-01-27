@@ -78,3 +78,36 @@ class ListCommand(DisplayCommand, Lister):
                     formatters=self._formatters,
                 ) for item in data),
         )
+
+
+class ProjectCommand(CLICommand):
+
+    def get_parser(self, prog_name):
+        parser = super(ProjectCommand, self).get_parser(prog_name)
+        if not self.app or not self.app.interactive_mode or \
+                not self.app.context.get('project'):
+            parser.add_argument(
+                '--project',
+                metavar='PROJECT_ID',
+                help='Project''s ID',
+                required=True,
+            )
+        else:
+            parser.add_argument(
+                '--project',
+                metavar='PROJECT_ID',
+                help='Project''s ID',
+                required=False,
+                default=self.app.context.get('project'),
+            )
+        return parser
+
+
+class ProjectListCommand(ListCommand, ProjectCommand):
+
+    pass
+
+
+class ProjectShowCommand(ShowCommand, ProjectCommand):
+
+    pass
