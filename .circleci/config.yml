@@ -42,15 +42,15 @@ workflows:
   test:
     jobs:
       - py2.7
-      - py3.5
+      - py3.5:
           requires:
             - py2.7
-      - py3.6
+      - py3.6:
           requires:
             - py3.5
-      - py3.7
+      - py3.7:
           requires:
             - py3.6
-      - py3.8
+      - py3.8:
           requires:
             - py3.7
