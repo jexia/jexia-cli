@@ -99,11 +99,9 @@ def test_project_create_options(mock_auth, mock_req):
 
 @mock.patch('jexia_sdk.http.HTTPClient.request', return_value=[])
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
-def test_project_create_options_fail(mock_auth, mock_req, capsys):
+def test_project_create_options_fail(mock_auth, mock_req):
     with pytest.raises(SystemExit):
         run_cmd(['project create'])
-    _, err = capsys.readouterr()
-    assert 'arguments are required: --name' in err
 
 
 @mock.patch('jexia_sdk.http.HTTPClient.request',
@@ -125,11 +123,9 @@ def test_project_show(mock_auth, mock_req):
 
 @mock.patch('jexia_sdk.http.HTTPClient.request', return_value=[])
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
-def test_project_show_options_fail(mock_auth, mock_req, capsys):
+def test_project_show_options_fail(mock_auth, mock_req):
     with pytest.raises(SystemExit):
         run_cmd(['project show'], json_output=False)
-    _, err = capsys.readouterr()
-    assert 'arguments are required: PROJECT_ID' in err
 
 
 @mock.patch('jexia_sdk.http.HTTPClient.request', return_value='')
@@ -145,11 +141,9 @@ def test_project_delete(mock_auth, mock_req):
 
 @mock.patch('jexia_sdk.http.HTTPClient.request', return_value='')
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
-def test_project_delete_options_fail(mock_auth, mock_req, capsys):
+def test_project_delete_options_fail(mock_auth, mock_req):
     with pytest.raises(SystemExit):
         run_cmd(['project delete'], json_output=False)
-    _, err = capsys.readouterr()
-    assert 'arguments are required: PROJECT_ID' in err
 
 
 @pytest.mark.integration

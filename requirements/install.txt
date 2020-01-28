@@ -1,2 +1,2 @@
-jexia-sdk==0.0.1.dev4
+jexia-sdk==0.0.1.dev5
 cliff==2.18.0

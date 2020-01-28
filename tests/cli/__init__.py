@@ -25,6 +25,7 @@ class FakeStdout(object):
 
 
 def run_cmd(args, json_output=True, print_output=True):
+    args.insert(0, '--debug')
     if json_output:
         args.extend(['-f', 'json'])
     LOG.debug('Execute command: jexia %s' % ' '.join(args))
