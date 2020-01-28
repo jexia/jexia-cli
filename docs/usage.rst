@@ -175,7 +175,7 @@ To remove constraint use empty (or false for boolean) value:
 
 .. code-block:: console
 
-    $ jexia dataset field update --project=8ae43645-2dfb-45c7-a7bd-991dde8b775a --dataset=825cbad3-f5b7-4d4c-a65e-07d3b5002929 --constrain default="" 8e151f87-eab7-4284-88d8-a2b51157a7a4
+    $ jexia dataset field update --project=8ae43645-2dfb-45c7-a7bd-991dde8b775a --dataset=825cbad3-f5b7-4d4c-a65e-07d3b5002929 --constrain default= 8e151f87-eab7-4284-88d8-a2b51157a7a4
     +-------------+--------------------------------------+
     | Field       | Value                                |
     +-------------+--------------------------------------+

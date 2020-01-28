@@ -61,7 +61,7 @@ setup(
     name = "jexia_cli",
     version = __version__,
     author = "Jexia",
-    author_email = "cli-team@jexia.com",
+    author_email = "sdk-team@jexia.com",
     description = ("Official CLI tool for Jexia platform"),
     long_description = long_description,
     license = "MIT",

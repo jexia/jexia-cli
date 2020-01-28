@@ -124,8 +124,7 @@ def cover(ctx, html=False):
     header(cover.__doc__)
     extra = '--cov-report=html' if html else ''
     with ctx.cd(ROOT):
-        # TODO: enable integration testing when the reCaptcha will be removed
-        ctx.run('py.test -p no:warnings -m "not integration" --cov=jexia_cli --cov-report=term {0}'.format(extra), pty=True)
+        ctx.run('py.test -p no:warnings --cov=jexia_cli --cov-report=term {0}'.format(extra), pty=True)
 
 
 @task
