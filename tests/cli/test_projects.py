@@ -1,9 +1,11 @@
 import mock
 import pytest
 
+from jexia_cli.formatters import format_datetime
 from tests.cli import run_cmd, SHELL_CONFIG
 
 
+CREATED_AT = 1580208898
 PROJECT_LIST_RESP = {
     'accounts': [{
         'account_owner_id': '3054b850-a1d9-4860-8b4e-2b63b7322907',
@@ -19,13 +21,13 @@ PROJECT_LIST_RESP = {
         'is_owner': True,
         'name': 'integration',
         'description': '<nil>',
-        'created_at': 1580208898
+        'created_at': CREATED_AT
     }]
 }
 PROJECT_CREATE_RESP = {
     'is_owner': 'true',
     'description': '<nil>',
-    'created_at': '1580210078',
+    'created_at': '%s' % CREATED_AT,
     'owner': '284e31e6-b21b-418f-b19e-21d1c741db63',
     'id': '5f0c9f45-cbd8-4054-8158-b64c39fb8be9',
     'name': 'integration'
@@ -34,7 +36,7 @@ PROJECT_SHOW_RESP = {
     'collaborators': None,
     'is_owner': 'true',
     'name': 'integration',
-    'created_at': '1580210078',
+    'created_at': '%s' % CREATED_AT,
     'owner': '284e31e6-b21b-418f-b19e-21d1c741db63',
     'id': '5f0c9f45-cbd8-4054-8158-b64c39fb8be9',
     'description': '<nil>'
@@ -53,7 +55,7 @@ def test_project_list(mock_auth, mock_req):
             "id": "3054b850-a1d9-4860-8b4e-2b63b7322907",
             "name": "integration",
             "description": "",
-            "created_at": "2020-01-28 13:54:58"
+            "created_at": format_datetime(CREATED_AT)
         }
     ]
     assert cur_projects == resp
@@ -81,7 +83,7 @@ def test_project_create(mock_auth, mock_req):
         'id': '5f0c9f45-cbd8-4054-8158-b64c39fb8be9',
         'name': 'integration',
         'description': '',
-        'created_at': '2020-01-28 14:14:38'
+        'created_at': format_datetime(CREATED_AT)
     }
     assert res == resp
 
@@ -115,7 +117,7 @@ def test_project_show(mock_auth, mock_req):
         'id': '5f0c9f45-cbd8-4054-8158-b64c39fb8be9',
         'name': 'integration',
         'description': '',
-        'created_at': '2020-01-28 14:14:38',
+        'created_at': format_datetime(CREATED_AT),
         'collaborators': None
     }
     assert res == resp
