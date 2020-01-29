@@ -90,27 +90,7 @@ Commands
 .. autoprogram-cliff:: jexia_cli.commands
    :command: dataset field create
 
-Allowed constraints for all of types:
-  * **default** (*string*) - default value
-  * **required** (*true*/*false*) - required field
-
-Allowed constraints for *integer*/*float* fields:
-  * **max_value** (*integer*/*float*) - maximum value
-  * **min_value** (*integer*/*float*) - minimum value
-
-Allowed constraints for *string* fields:
-  * **lowercase** (*true*/*false*) - field can only contain
-    lowercase values
-  * **uppercase** (*true*/*false*) - field can only contain
-    uppercase values
-  * **alphanumeric** (*true*/*false*) - field can only contain
-    alpha-numeric values
-  * **regexp** (*regex expression*) - field can only contain value matched
-    to the regex expression
-  * **alpha** (*true*/*false*) - field can only contain letters
-  * **numeric** (*true*/*false*) - field can only contain numbers
-  * **min_length** (*integer*) - minimum length of string
-  * **max_length** (*integer*) - maximum length of string
+.. include:: constraints.rst
 
 **Example of usage**:
 
@@ -131,27 +111,7 @@ Allowed constraints for *string* fields:
 .. autoprogram-cliff:: jexia_cli.commands
    :command: dataset field update
 
-Allowed constraints for all of types:
-  * **default** (*string*) - default value
-  * **required** (*true*/*false*) - required field
-
-Allowed constraints for *integer*/*float* fields:
-  * **max_value** (*integer*/*float*) - maximum value
-  * **min_value** (*integer*/*float*) - minimum value
-
-Allowed constraints for *string* fields:
-  * **lowercase** (*true*/*false*) - field can only contain
-    lowercase values
-  * **uppercase** (*true*/*false*) - field can only contain
-    uppercase values
-  * **alphanumeric** (*true*/*false*) - field can only contain
-    alpha-numeric values
-  * **regexp** (*regex expression*) - field can only contain value matched
-    to the regex expression
-  * **alpha** (*true*/*false*) - field can only contain letters
-  * **numeric** (*true*/*false*) - field can only contain numbers
-  * **min_length** (*integer*) - minimum length of string
-  * **max_length** (*integer*) - maximum length of string
+.. include:: constraints.rst
 
 **Example of usage**:
 
@@ -190,3 +150,27 @@ To remove constraint use empty (or false for boolean) value:
 .. autoprogram-cliff:: jexia_cli.commands
    :command: dataset field delete
 
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset list
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset create
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset delete
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset field list
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset field create
+
+.. include:: constraints.rst
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset field update
+
+.. include:: constraints.rst
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset field delete

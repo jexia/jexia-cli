@@ -110,6 +110,14 @@ setup(
             'dataset_field_create = jexia_cli.commands.datasets_fields:Create',
             'dataset_field_update = jexia_cli.commands.datasets_fields:Update',
             'dataset_field_delete = jexia_cli.commands.datasets_fields:Delete',
+            'fileset_list = jexia_cli.commands.filesets:List',
+            'fileset_create = jexia_cli.commands.filesets:Create',
+            'fileset_update = jexia_cli.commands.filesets:Update',
+            'fileset_delete = jexia_cli.commands.filesets:Delete',
+            'fileset_field_list = jexia_cli.commands.filesets_fields:List',
+            'fileset_field_create = jexia_cli.commands.filesets_fields:Create',
+            'fileset_field_update = jexia_cli.commands.filesets_fields:Update',
+            'fileset_field_delete = jexia_cli.commands.filesets_fields:Delete',
         ]
     },
 )

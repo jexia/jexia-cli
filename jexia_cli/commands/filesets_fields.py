@@ -15,7 +15,7 @@ LOG = logging.getLogger(__name__)
 
 class List(ProjectServiceFieldList):
     '''
-    Show fields of dataset
+    Show fields of fileset
     '''
 
     columns = ['id', 'name', 'type', 'immutable', 'properties', 'constraints']
@@ -23,13 +23,13 @@ class List(ProjectServiceFieldList):
         'properties': lambda v: json.dumps(v),
         'constraints': formatter_constraints,
     }
-    resource = 'dataset'
-    svc_url = 'mimir/ds'
+    resource = 'fileset'
+    svc_url = 'bestla/fs'
 
 
 class Create(ProjectServiceFieldCommand):
     '''
-    Create new field in dataset.
+    Create new field in fileset.
     '''
 
     columns = ['id', 'name', 'type', 'immutable', 'properties', 'constraints']
@@ -37,14 +37,14 @@ class Create(ProjectServiceFieldCommand):
         'properties': lambda v: json.dumps(v),
         'constraints': formatter_constraints,
     }
-    resource = 'dataset'
+    resource = 'fileset'
     field_action = 'create'
-    svc_url = 'mimir/ds'
+    svc_url = 'bestla/fs'
 
 
 class Update(ProjectServiceFieldCommand):
     '''
-    Update the field's constraints in dataset.
+    Update the field's constraints in fileset.
     '''
 
     columns = ['id', 'name', 'type', 'immutable', 'properties', 'constraints']
@@ -52,15 +52,15 @@ class Update(ProjectServiceFieldCommand):
         'properties': lambda v: json.dumps(v),
         'constraints': formatter_constraints,
     }
-    resource = 'dataset'
+    resource = 'fileset'
     field_action = 'update'
-    svc_url = 'mimir/ds'
+    svc_url = 'bestla/fs'
 
 
 class Delete(ProjectServiceFieldDelete):
     '''
-    Delete field from the dataset
+    Delete field from the fileset
     '''
 
-    resource = 'dataset'
-    svc_url = 'mimir/ds'
+    resource = 'fileset'
+    svc_url = 'bestla/fs'

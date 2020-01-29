@@ -47,7 +47,7 @@ PROJECT_SHOW_RESP = {
             return_value=PROJECT_LIST_RESP)
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
 def test_project_list(mock_auth, mock_req):
-    cur_projects = run_cmd(['project list'])
+    cur_projects = run_cmd(['project list', '-f=json'])
     mock_req.assert_called_once_with(
         limit=10, method='GET', page=0, url='/projects')
     resp = [
@@ -65,7 +65,8 @@ def test_project_list(mock_auth, mock_req):
             return_value={'projects': []})
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
 def test_project_list_options(mock_auth, mock_req):
-    cur_projects = run_cmd(['project list', '--limit=100', '--page=20'])
+    cur_projects = run_cmd(['project list', '-f=json', '--limit=100',
+                            '--page=20'])
     mock_req.assert_called_once_with(
         limit=100, method='GET', page=20, url='/projects')
     assert cur_projects == []
@@ -75,7 +76,7 @@ def test_project_list_options(mock_auth, mock_req):
             return_value=PROJECT_CREATE_RESP)
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
 def test_project_create(mock_auth, mock_req):
-    res = run_cmd(['project create', '--name=test'])
+    res = run_cmd(['project create', '-f=json', '--name=test'])
     mock_req.assert_called_once_with(
         method='POST', url='/project',
         data={'name': 'test', 'description': None})
@@ -91,7 +92,8 @@ def test_project_create(mock_auth, mock_req):
 @mock.patch('jexia_sdk.http.HTTPClient.request', return_value=[])
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
 def test_project_create_options(mock_auth, mock_req):
-    run_cmd(['project create', '--name=test', '--description=descr'])
+    run_cmd(['project create', '-f=json', '--name=test',
+             '--description=descr'])
     mock_req.assert_called_once_with(
         method='POST', url='/project',
         data={'name': 'test', 'description': 'descr'})
@@ -108,7 +110,7 @@ def test_project_create_options_fail(mock_auth, mock_req):
             return_value=PROJECT_SHOW_RESP)
 @mock.patch('jexia_sdk.http.HTTPClient.auth_management')
 def test_project_show(mock_auth, mock_req):
-    res = run_cmd(['project show', 'test'])
+    res = run_cmd(['project show', '-f=json', 'test'])
     mock_req.assert_called_once_with(
         method='GET', url='/project/test')
     resp = {
@@ -149,9 +151,10 @@ def test_project_delete_options_fail(mock_auth, mock_req):
 @pytest.mark.integration
 def test_projects_integration():
     # get current projects
-    cur_projects = run_cmd(['project list'])
+    cur_projects = run_cmd(['project list', '-f=json'])
     # create new project
     new_project = run_cmd(['project create',
+                           '-f=json',
                            '--name=integration'])
     assert 'id' in new_project
     assert 'name' in new_project
@@ -160,6 +163,7 @@ def test_projects_integration():
     assert 'integration' == new_project['name']
     # get project
     project = run_cmd(['project show',
+                       '-f=json',
                        '%s' % new_project['id']])
     assert 'id' in project
     assert 'name' in project
@@ -168,7 +172,7 @@ def test_projects_integration():
     assert 'collaborators' in project
     assert new_project['id'] == project['id']
     # check number of projects
-    projects = run_cmd(['project list'])
+    projects = run_cmd(['project list', '-f=json'])
     assert len(cur_projects) + 1 == len(projects)
     # delete project
     output = run_cmd(['project delete',
@@ -176,5 +180,5 @@ def test_projects_integration():
                       '--yes-i-really-want-to-delete'], json_output=False)
     assert '' == output
     # check number of projects
-    projects = run_cmd(['project list'])
+    projects = run_cmd(['project list', '-f=json'])
     assert len(cur_projects) == len(projects)

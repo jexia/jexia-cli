@@ -6,27 +6,11 @@ import json
 
 from jexia_cli.base import (ProjectCommand, ProjectListCommand,
                             ProjectShowCommand)
+from jexia_cli.formatters import formatter_fields
 from jexia_cli.utils import with_authentication
 
 
 LOG = logging.getLogger(__name__)
-
-
-def formatter_fields(val):
-    fields = []
-    for opt in val:
-        if opt['immutable']:
-            fields.append('%s* (%s)' % (opt['name'], opt['type']))
-        else:
-            fields.append('%s (%s)' % (opt['name'], opt['type']))
-    return '\n'.join(fields)
-
-
-def formatter_constraints(val):
-    fields = []
-    for con in val:
-        fields.append('%s=%s' % (con['type'], con['value']))
-    return ', '.join(fields)
 
 
 class List(ProjectListCommand):
