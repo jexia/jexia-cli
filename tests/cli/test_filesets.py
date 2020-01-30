@@ -38,27 +38,27 @@ def test_filesets_integration(integration_teardown):
                        '--bucket=%s' % os.environ['JEXIA_CLI_TEST_AWS_BUCKET']
                        ])
     _CREATED_RESOURCE = fileset.get('id')
-    assert FILESET_COLUMNS == list(fileset.keys())
+    assert set(FILESET_COLUMNS) == set(fileset.keys())
     # list of filesets
     filesets = run_cmd(['fileset list',
                         '-f=json',
                         '--project=%s' % PROJECT_ID])
     assert initial_number_of_filesets + 1 == len(filesets)
-    assert FILESET_COLUMNS == list(filesets[0].keys())
+    assert set(FILESET_COLUMNS) == set(filesets[0].keys())
     # update fileset
     fileset = run_cmd(['fileset update',
                        '-f=json',
                        '--project=%s' % PROJECT_ID,
                        '--name=test-integration-renamed',
                        fileset.get('id')])
-    assert FILESET_COLUMNS == list(fileset.keys())
+    assert set(FILESET_COLUMNS) == set(fileset.keys())
     # list of fileset fields
     fields = run_cmd(['fileset field list',
                       '-f=json',
                       '--project=%s' % PROJECT_ID,
                       '--fileset=%s' % fileset['id']])
     assert 8 == len(fields)
-    assert FILESET_FIELD_COLUMNS == list(fields[0].keys())
+    assert set(FILESET_FIELD_COLUMNS) == set(fields[0].keys())
     # create fileset field
     field = run_cmd(['fileset field create',
                      '-f=json',
@@ -69,7 +69,7 @@ def test_filesets_integration(integration_teardown):
                      '--constraint=min_length=1000',
                      '--constraint=required=true',
                      '--constraint=default=some-val'])
-    assert FILESET_FIELD_COLUMNS == list(field.keys())
+    assert set(FILESET_FIELD_COLUMNS) == set(field.keys())
     assert 'min_length=1000' in field['constraints']
     assert 'required=True' in field['constraints']
     assert 'default=some-val' in field['constraints']
@@ -81,7 +81,7 @@ def test_filesets_integration(integration_teardown):
                      '--constraint=required=false',
                      '--constraint=default=',
                      field['id']])
-    assert FILESET_FIELD_COLUMNS == list(field.keys())
+    assert set(FILESET_FIELD_COLUMNS) == set(field.keys())
     assert 'min_length=1000' == field['constraints']
     # delete fileset field
     output = run_cmd(['fileset field delete',

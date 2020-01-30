@@ -34,20 +34,20 @@ def test_datasets_integration(integration_teardown):
                        '--project=%s' % PROJECT_ID,
                        '--name=test-integration'])
     _CREATED_RESOURCE = dataset.get('id')
-    assert DATASET_COLUMNS == list(dataset.keys())
+    assert set(DATASET_COLUMNS) == set(dataset.keys())
     # list of datasets
     datasets = run_cmd(['dataset list',
                         '-f=json',
                         '--project=%s' % PROJECT_ID])
     assert initial_number_of_datasets + 1 == len(datasets)
-    assert DATASET_COLUMNS == list(datasets[0].keys())
+    assert set(DATASET_COLUMNS) == set(datasets[0].keys())
     # list of dataset fields
     fields = run_cmd(['dataset field list',
                       '-f=json',
                       '--project=%s' % PROJECT_ID,
                       '--dataset=%s' % dataset['id']])
     assert 3 == len(fields)
-    assert DATASET_FIELD_COLUMNS == list(fields[0].keys())
+    assert set(DATASET_FIELD_COLUMNS) == set(fields[0].keys())
     # create dataset field
     field = run_cmd(['dataset field create',
                      '-f=json',
@@ -58,7 +58,7 @@ def test_datasets_integration(integration_teardown):
                      '--constraint=min_length=1000',
                      '--constraint=required=true',
                      '--constraint=default=some-val'])
-    assert DATASET_FIELD_COLUMNS == list(field.keys())
+    assert set(DATASET_FIELD_COLUMNS) == set(field.keys())
     assert 'min_length=1000' in field['constraints']
     assert 'required=True' in field['constraints']
     assert 'default=some-val' in field['constraints']
@@ -70,7 +70,7 @@ def test_datasets_integration(integration_teardown):
                      '--constraint=required=false',
                      '--constraint=default=',
                      field['id']])
-    assert DATASET_FIELD_COLUMNS == list(field.keys())
+    assert set(DATASET_FIELD_COLUMNS) == set(field.keys())
     assert 'min_length=1000' == field['constraints']
     # delete dataset field
     output = run_cmd(['dataset field delete',

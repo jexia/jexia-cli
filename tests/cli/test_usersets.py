@@ -32,20 +32,20 @@ def test_usersets_integration(integration_teardown):
                        '--email=test-integration@example.com',
                        '--password=test'])
     _CREATED_RESOURCE = userset.get('id')
-    assert USERSET_COLUMNS == list(userset.keys())
+    assert set(USERSET_COLUMNS) == set(userset.keys())
     # list of usersets
     usersets = run_cmd(['userset list',
                         '-f=json',
                         '--project=%s' % PROJECT_ID])
     assert initial_number_of_usersets + 1 == len(usersets)
-    assert USERSET_COLUMNS == list(usersets[0].keys())
+    assert set(USERSET_COLUMNS) == set(usersets[0].keys())
     # update userset
     userset = run_cmd(['userset update',
                        '-f=json',
                        '--project=%s' % PROJECT_ID,
                        '--deactivate',
                        userset['id']])
-    assert USERSET_COLUMNS == list(userset.keys())
+    assert set(USERSET_COLUMNS) == set(userset.keys())
     assert not userset['active']
     # delete userset
     output = run_cmd(['userset delete',
