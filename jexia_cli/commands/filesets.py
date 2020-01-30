@@ -66,7 +66,8 @@ class Create(ProjectShowCommand):
         # subparser for AWS S3 bucket provider
         aws_parser = subparsers.add_parser(
             'aws-s3',
-            help='Amazone S3 bucket'
+            help='Amazone S3 bucket',
+            add_help=False
         )
         aws_parser.add_argument(
             '--key',
@@ -110,6 +111,43 @@ class Create(ProjectShowCommand):
             url='/management/%s/bestla/fs' % parsed_args.project,
             data={'name': parsed_args.name,
                   'provider': provider_data})
+        return self.setup_columns(result)
+
+
+class Update(ProjectShowCommand):
+    '''
+    Update fileset
+    '''
+
+    columns = ['id', 'name', 'properties', 'inputs', 'provider']
+    _formatters = {
+        'properties': lambda v: json.dumps(v),
+        'inputs': formatter_fields,
+        'provider': formatter_provider,
+    }
+
+    def get_parser(self, prog_name):
+        parser = super(Update, self).get_parser(prog_name)
+        parser.add_argument(
+            '--name',
+            metavar='NAME',
+            help='Fileset\'s name',
+            required=True,
+        )
+        parser.add_argument(
+            'fileset',
+            metavar="FILESET_ID",
+            help='UUID of fileset which should be changed',
+        )
+        return parser
+
+    @with_authentication
+    def take_action(self, parsed_args):
+        result = self.app.client.request(
+            method='PUT',
+            url='/management/%s/bestla/fs/%s' % (parsed_args.project,
+                                                 parsed_args.fileset),
+            data={'name': parsed_args.name})
         return self.setup_columns(result)
 
 

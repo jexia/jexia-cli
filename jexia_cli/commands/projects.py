@@ -4,7 +4,7 @@
 import logging
 
 from jexia_cli.base import CLICommand, ListCommand, ShowCommand
-from jexia_cli.formatters import format_datetime
+from jexia_cli.formatters import format_timestamp_to_utc
 from jexia_cli.utils import confirm_action, with_authentication
 
 LOG = logging.getLogger(__name__)
@@ -16,7 +16,7 @@ class List(ListCommand):
     '''
 
     columns = ['id', 'name', 'description', 'created_at']
-    _formatters = {"created_at": format_datetime}
+    _formatters = {"created_at": format_timestamp_to_utc}
 
     def get_parser(self, prog_name):
         parser = super(List, self).get_parser(prog_name)
@@ -50,7 +50,7 @@ class Create(ShowCommand):
     '''
 
     columns = ['id', 'name', 'description', 'created_at']
-    _formatters = {"created_at": format_datetime}
+    _formatters = {"created_at": format_timestamp_to_utc}
 
     def get_parser(self, prog_name):
         parser = super(Create, self).get_parser(prog_name)
@@ -82,7 +82,7 @@ class Show(ShowCommand):
     '''
 
     columns = ['id', 'name', 'description', 'created_at', 'collaborators']
-    _formatters = {"created_at": format_datetime}
+    _formatters = {"created_at": format_timestamp_to_utc}
 
     def get_parser(self, prog_name):
         parser = super(Show, self).get_parser(prog_name)

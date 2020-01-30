@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from datetime import datetime
+import time
 
 
-def format_datetime(val):
-    return str(datetime.fromtimestamp(int(val)))
+def format_timestamp_to_utc(val):
+    return time.strftime("%Y-%m-%dT%H:%M:%S.000000Z", time.gmtime(int(val)))
 
 
 def formatter_constraints(val):

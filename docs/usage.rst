@@ -156,6 +156,19 @@ To remove constraint use empty (or false for boolean) value:
 .. autoprogram-cliff:: jexia_cli.commands
    :command: fileset create
 
+**Provider specific arguments:**
+
+AWS-S3
+
+--key KEY
+   AWS key
+
+--secret SECRET
+   AWS secret
+
+--bucket BUCKET
+   AWS S3 bucket
+
 .. autoprogram-cliff:: jexia_cli.commands
    :command: fileset delete
 

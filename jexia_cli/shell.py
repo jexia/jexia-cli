@@ -25,7 +25,7 @@ class CLI(App):
             description='Friendly Console Interface for Jexia platform.',
             version=__version__,
             command_manager=CommandManager('jexia_cli.commands'),
-            deferred_help=False, )
+            deferred_help=True)
 
     def build_option_parser(self, description, version, argparse_kwargs=None):
         parser = super(CLI, self).build_option_parser(description, version,
@@ -47,9 +47,13 @@ class CLI(App):
 
     def initialize_app(self, argv):
         self.command_manager.add_command('complete', CompleteCommand)
+        self.config = load_config(self.options.config)
+        if self.options.domain == DEFAULT_DOMAIN and self.config.get('domain'):
+            self.options.domain = self.config.get('domain')
+        if not self.options.insecure and self.config.get('insecure'):
+            self.options.insecure = self.config.get('insecure')
         self.client = HTTPClient(domain=self.options.domain,
                                  ssl_check=not self.options.insecure)
-        self.config = load_config(self.options.config)
         self.context = dict()
 
     def configure_logging(self):

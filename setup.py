@@ -118,6 +118,10 @@ setup(
             'fileset_field_create = jexia_cli.commands.filesets_fields:Create',
             'fileset_field_update = jexia_cli.commands.filesets_fields:Update',
             'fileset_field_delete = jexia_cli.commands.filesets_fields:Delete',
+            'userset_list = jexia_cli.commands.usersets:List',
+            'userset_create = jexia_cli.commands.usersets:Create',
+            'userset_update = jexia_cli.commands.usersets:Update',
+            'userset_delete = jexia_cli.commands.usersets:Delete',
         ]
     },
 )

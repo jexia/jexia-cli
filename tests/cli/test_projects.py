@@ -1,7 +1,7 @@
 import mock
 import pytest
 
-from jexia_cli.formatters import format_datetime
+from jexia_cli.formatters import format_timestamp_to_utc
 from tests.cli import run_cmd, SHELL_CONFIG
 
 
@@ -55,7 +55,7 @@ def test_project_list(mock_auth, mock_req):
             "id": "3054b850-a1d9-4860-8b4e-2b63b7322907",
             "name": "integration",
             "description": "",
-            "created_at": format_datetime(CREATED_AT)
+            "created_at": format_timestamp_to_utc(CREATED_AT)
         }
     ]
     assert cur_projects == resp
@@ -84,7 +84,7 @@ def test_project_create(mock_auth, mock_req):
         'id': '5f0c9f45-cbd8-4054-8158-b64c39fb8be9',
         'name': 'integration',
         'description': '',
-        'created_at': format_datetime(CREATED_AT)
+        'created_at': format_timestamp_to_utc(CREATED_AT)
     }
     assert res == resp
 
@@ -117,7 +117,7 @@ def test_project_show(mock_auth, mock_req):
         'id': '5f0c9f45-cbd8-4054-8158-b64c39fb8be9',
         'name': 'integration',
         'description': '',
-        'created_at': format_datetime(CREATED_AT),
+        'created_at': format_timestamp_to_utc(CREATED_AT),
         'collaborators': None
     }
     assert res == resp
@@ -148,14 +148,24 @@ def test_project_delete_options_fail(mock_auth, mock_req):
         run_cmd(['project delete'], json_output=False)
 
 
+@pytest.fixture()
+def integration_teardown():
+    yield
+    if _CREATED_RESOURCE:
+        run_cmd(['project delete', _CREATED_RESOURCE,
+                 '--yes-i-really-want-to-delete'])
+
+
 @pytest.mark.integration
-def test_projects_integration():
+def test_projects_integration(integration_teardown):
+    global _CREATED_RESOURCE
     # get current projects
     cur_projects = run_cmd(['project list', '-f=json'])
     # create new project
     new_project = run_cmd(['project create',
                            '-f=json',
                            '--name=integration'])
+    _CREATED_RESOURCE = new_project.get('id')
     assert 'id' in new_project
     assert 'name' in new_project
     assert 'description' in new_project
