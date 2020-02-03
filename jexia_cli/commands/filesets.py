@@ -15,7 +15,9 @@ LOG = logging.getLogger(__name__)
 
 def formatter_provider(val):
     fields = []
-    for opt in val['options']:
+    if not val:
+        return ''
+    for opt in val.get('options', []):
         fields.append('%s=%s' % (opt['key'], opt['value']))
     return '%s:' % val['id'] + ','.join(fields)
 
@@ -93,19 +95,15 @@ class Create(ProjectShowCommand):
     def take_action(self, parsed_args):
         if parsed_args.provider == 'aws-s3':
             opts = ['key', 'secret', 'bucket']
-        options_data = list()
-        for opt in opts:
-            options_data.append({'key': opt,
-                                 'value': getattr(parsed_args, opt)})
-        provider_data = {
-            'id': parsed_args.provider,
-            'options': options_data,
-            'valid': False
-        }
-        self.app.client.request(
-            method='POST',
-            url='/management/%s/bestla/storage' % parsed_args.project,
-            data=provider_data)
+            options_data = list()
+            for opt in opts:
+                options_data.append({'key': opt,
+                                     'value': getattr(parsed_args, opt)})
+            provider_data = {
+                'id': parsed_args.provider,
+                'options': options_data,
+                'valid': False
+            }
         result = self.app.client.request(
             method='POST',
             url='/management/%s/bestla/fs' % parsed_args.project,

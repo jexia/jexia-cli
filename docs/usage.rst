@@ -170,6 +170,9 @@ AWS-S3
    AWS S3 bucket
 
 .. autoprogram-cliff:: jexia_cli.commands
+   :command: fileset update
+
+.. autoprogram-cliff:: jexia_cli.commands
    :command: fileset delete
 
 .. autoprogram-cliff:: jexia_cli.commands
@@ -187,3 +190,24 @@ AWS-S3
 
 .. autoprogram-cliff:: jexia_cli.commands
    :command: fileset field delete
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: userset list
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: userset create
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: userset update
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: userset delete
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: relation list
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: relation create
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: relation delete

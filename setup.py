@@ -122,6 +122,9 @@ setup(
             'userset_create = jexia_cli.commands.usersets:Create',
             'userset_update = jexia_cli.commands.usersets:Update',
             'userset_delete = jexia_cli.commands.usersets:Delete',
+            'relation_list = jexia_cli.commands.relations:List',
+            'relation_create = jexia_cli.commands.relations:Create',
+            'relation_delete = jexia_cli.commands.relations:Delete',
         ]
     },
 )
