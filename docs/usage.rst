@@ -211,3 +211,27 @@ AWS-S3
 
 .. autoprogram-cliff:: jexia_cli.commands
    :command: relation delete
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: channel list
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: channel create
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: channel update
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: channel delete
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: key list
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: key create
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: key update
+
+.. autoprogram-cliff:: jexia_cli.commands
+   :command: key delete

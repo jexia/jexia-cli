@@ -98,7 +98,7 @@ class Update(ProjectShowCommand):
         parser.add_argument(
             'channel',
             metavar="CHANNEL_ID",
-            help='UUID of channel which should be deleted',
+            help='UUID of channel which should be updated',
         )
         return parser
 

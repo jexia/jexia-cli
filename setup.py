@@ -129,6 +129,10 @@ setup(
             'channel_create = jexia_cli.commands.channels:Create',
             'channel_update = jexia_cli.commands.channels:Update',
             'channel_delete = jexia_cli.commands.channels:Delete',
+            'key_list = jexia_cli.commands.keys:List',
+            'key_create = jexia_cli.commands.keys:Create',
+            'key_update = jexia_cli.commands.keys:Update',
+            'key_delete = jexia_cli.commands.keys:Delete',
         ]
     },
 )
