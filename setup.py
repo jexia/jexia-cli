@@ -125,6 +125,10 @@ setup(
             'relation_list = jexia_cli.commands.relations:List',
             'relation_create = jexia_cli.commands.relations:Create',
             'relation_delete = jexia_cli.commands.relations:Delete',
+            'channel_list = jexia_cli.commands.channels:List',
+            'channel_create = jexia_cli.commands.channels:Create',
+            'channel_update = jexia_cli.commands.channels:Update',
+            'channel_delete = jexia_cli.commands.channels:Delete',
         ]
     },
 )

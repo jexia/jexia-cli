@@ -61,8 +61,8 @@ def load_config(config_file):
         with open(config_file, 'r') as f:
             config = yaml.safe_load(f)
     except Exception as exc:
-        LOG.info("Config file %s could not be loaded: %s"
-                 % (config_file, exc))
+        LOG.debug("Config file %s could not be loaded: %s"
+                  % (config_file, exc))
     return config
 
 
