@@ -133,6 +133,16 @@ setup(
             'key_create = jexia_cli.commands.keys:Create',
             'key_update = jexia_cli.commands.keys:Update',
             'key_delete = jexia_cli.commands.keys:Delete',
+            'app_list = jexia_cli.commands.apps:List',
+            'app_create = jexia_cli.commands.apps:Create',
+            'app_update = jexia_cli.commands.apps:Update',
+            'app_delete = jexia_cli.commands.apps:Delete',
+            'app_deploy = jexia_cli.commands.apps_deployments:Create',
+            'app_deploy_list = jexia_cli.commands.apps_deployments:List',
+            'app_deploy_show = jexia_cli.commands.apps_deployments:Show',
+            'app_domain_list = jexia_cli.commands.apps_domains:List',
+            'app_domain_create = jexia_cli.commands.apps_domains:Create',
+            'app_domain_delete = jexia_cli.commands.apps_domains:Delete',
         ]
     },
 )
