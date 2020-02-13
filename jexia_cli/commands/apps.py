@@ -59,7 +59,8 @@ class Create(ProjectShowCommand):
             metavar='KEY=VALUE',
             action='append',
             default=[],
-            help=('Environment variables for the application.'),
+            help=('Environment variables for the application. This is '
+                  'repeatable option.'),
         )
         return parser
 
@@ -109,7 +110,8 @@ class Update(ProjectShowCommand):
             metavar='KEY=VALUE',
             action='append',
             default=[],
-            help=('Environment variables for the application.'),
+            help=('Environment variables for the application. This is '
+                  'repeatable option.'),
         )
         parser.add_argument(
             'app',

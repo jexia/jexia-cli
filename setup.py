@@ -143,6 +143,10 @@ setup(
             'app_domain_list = jexia_cli.commands.apps_domains:List',
             'app_domain_create = jexia_cli.commands.apps_domains:Create',
             'app_domain_delete = jexia_cli.commands.apps_domains:Delete',
+            'policy_list = jexia_cli.commands.policies:List',
+            'policy_create = jexia_cli.commands.policies:Create',
+            'policy_update = jexia_cli.commands.policies:Update',
+            'policy_delete = jexia_cli.commands.policies:Delete',
         ]
     },
 )

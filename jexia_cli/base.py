@@ -78,27 +78,33 @@ class DisplayCommand(CLICommand):
 
 class ShowCommand(DisplayCommand, ShowOne):
 
-    def setup_columns(self, data):
+    def setup_columns(self, data, parsed_args=None):
+        formatters = self._formatters
+        if parsed_args and parsed_args.formatter in ['json', 'yaml']:
+            formatters = {}
         return (
             self.columns,
             get_dict_properties(
                 data,
                 self.columns,
-                formatters=self._formatters
+                formatters=formatters
             ),
         )
 
 
 class ListCommand(DisplayCommand, Lister):
 
-    def setup_columns(self, data):
+    def setup_columns(self, data, parsed_args=None):
+        formatters = self._formatters
+        if parsed_args and parsed_args.formatter in ['json', 'yaml']:
+            formatters = {}
         return (
             self.columns,
             (
                 get_dict_properties(
                     item,
                     self.columns,
-                    formatters=self._formatters,
+                    formatters=formatters,
                 ) for item in data),
         )
 
@@ -192,7 +198,7 @@ class ProjectServiceFieldCommand(ProjectShowCommand):
             metavar='TYPE=VALUE',
             action='append',
             help=('Field\'s constraints, repeatable option (see documentation'
-                  'to get more information)'),
+                  'to get more information). This is repeatable option.'),
         )
         if self.field_action == 'update':
             parser.add_argument(

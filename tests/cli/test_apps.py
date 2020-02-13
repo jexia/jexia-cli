@@ -1,3 +1,4 @@
+import json
 import os
 import pytest
 
@@ -36,7 +37,9 @@ def test_apps_integration(integration_teardown):
     _CREATED_RESOURCE = app.get('id')
     assert set(APP_COLUMNS) == set(app.keys())
     assert app['public_url'] == 'https://%s.jexia.app' % app.get('id')
-    assert app['env_vars'] == '{"key1": "val1", "key2": "val2"}'
+    variables = json.loads(app['env_vars'])
+    assert variables['key1'] == 'val1'
+    assert variables['key2'] == 'val2'
     # list of apps
     apps = run_cmd(['app list',
                     '-f=json',
