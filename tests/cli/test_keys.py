@@ -31,7 +31,7 @@ def test_keys_integration(integration_teardown):
                    '--project=%s' % PROJECT_ID,
                    '--description=test-integration'])
     _CREATED_RESOURCE = key.get('key')
-    assert set(KEY_COLUMNS) == set(key.keys())
+    assert set(KEY_COLUMNS + ['secret']) == set(key.keys())
     # list of keys
     keys = run_cmd(['key list',
                     '-f=json',

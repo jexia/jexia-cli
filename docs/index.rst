@@ -9,6 +9,8 @@ Jexia CLI
 This is the official Python CLI for interacting with
 `Jexia's <http://jexia.com>`_ platform.
 
+.. image:: _static/example.gif
+
 Compatibility
 -------------
 
@@ -27,7 +29,7 @@ Usage
 -----
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 4
 
     usage
 

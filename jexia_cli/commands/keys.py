@@ -31,7 +31,7 @@ class Create(ProjectShowCommand):
     Create new key
     '''
 
-    columns = ['key', 'description']
+    columns = ['key', 'description', 'secret']
 
     def get_parser(self, prog_name):
         parser = super(Create, self).get_parser(prog_name)

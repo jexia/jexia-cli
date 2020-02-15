@@ -26,6 +26,21 @@ def with_authentication(func):
     return wrapper
 
 
+def with_cleanup_resources(func):
+    def func_wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception:
+            raise
+        finally:
+            for req in getattr(args[0], 'cleanup_resources', []):
+                try:
+                    args[0].app.client.request(**req)
+                except Exception:
+                    pass
+    return func_wrapper
+
+
 def confirm_action(action):
     """Func must be a take_action func."""
 

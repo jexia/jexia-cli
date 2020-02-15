@@ -1,7 +1,7 @@
 Changelog
 =========
 
-.. currentmodule:: jexia_cli
+Release 1.0.0
+-------------
 
-Current
--------
+- Initial release

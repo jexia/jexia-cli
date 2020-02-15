@@ -52,8 +52,10 @@ class CLI(App):
             self.options.domain = self.config.get('domain')
         if not self.options.insecure and self.config.get('insecure'):
             self.options.insecure = self.config.get('insecure')
-        self.client = HTTPClient(domain=self.options.domain,
-                                 ssl_check=not self.options.insecure)
+        self.client = HTTPClient(
+            domain=self.options.domain, ssl_check=not self.options.insecure)
+        self.consumption_client = HTTPClient(
+            domain=self.options.domain, ssl_check=not self.options.insecure)
         self.context = dict()
 
     def configure_logging(self):

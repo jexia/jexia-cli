@@ -74,7 +74,7 @@ setup(
         'dev': dev_require,
     },
     classifiers = [
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         'Programming Language :: Python :: 2',
@@ -110,6 +110,8 @@ setup(
             'dataset_field_create = jexia_cli.commands.datasets_fields:Create',
             'dataset_field_update = jexia_cli.commands.datasets_fields:Update',
             'dataset_field_delete = jexia_cli.commands.datasets_fields:Delete',
+            'dataset_export = jexia_cli.commands.datasets_import_export:Export',
+            'dataset_import = jexia_cli.commands.datasets_import_export:Import',
             'fileset_list = jexia_cli.commands.filesets:List',
             'fileset_create = jexia_cli.commands.filesets:Create',
             'fileset_update = jexia_cli.commands.filesets:Update',

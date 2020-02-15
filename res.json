@@ -1,0 +1,70 @@
+[
+  {
+    "data": [
+      {},
+      {},
+      {}
+    ],
+    "inputs": [],
+    "name": "applications"
+  },
+  {
+    "data": [
+      {
+        "app_id": "c5c78cda-94fa-4c93-8941-8b9a31345233",
+        "status": "done"
+      },
+      {
+        "app_id": "c5c78cda-94fa-4c93-8941-8b9a31345233",
+        "status": "done"
+      },
+      {
+        "app_id": "b2176aa4-3730-4214-a8fb-9336a58f77f8",
+        "status": "done"
+      },
+      {
+        "app_id": "b2176aa4-3730-4214-a8fb-9336a58f77f8",
+        "status": "done"
+      },
+      {
+        "app_id": "c5c78cda-94fa-4c93-8941-8b9a31345233",
+        "status": "done"
+      },
+      {
+        "app_id": "c5c78cda-94fa-4c93-8941-8b9a31345233",
+        "status": "done"
+      },
+      {
+        "app_id": "1e1db4b5-370d-45ef-93d9-9cba7b2ba0ac",
+        "status": "done"
+      },
+      {
+        "app_id": "c5c78cda-94fa-4c93-8941-8b9a31345233",
+        "status": "done"
+      }
+    ],
+    "inputs": [
+      {
+        "constraints": [
+          {
+            "type": "required",
+            "value": true
+          }
+        ],
+        "name": "app_id",
+        "type": "uuid"
+      },
+      {
+        "constraints": [
+          {
+            "type": "default",
+            "value": "pending"
+          }
+        ],
+        "name": "status",
+        "type": "string"
+      }
+    ],
+    "name": "builds"
+  }
+]
