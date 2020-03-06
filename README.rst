@@ -17,7 +17,7 @@ Jexia CLI
 
 This is the official Jexia CLI for interacting with Jexia platform.
 
-.. image:: docs/_static/example.gif
+.. image:: https://raw.githubusercontent.com/jexia/jexia-cli/master/docs/_static/example.gif
     :target: https://github.com/jexia/jexia-cli
     :alt: Jexia CLI
 

@@ -6,7 +6,7 @@
 Jexia CLI
 =========
 
-This is the official Python CLI for interacting with
+This is the official CLI for interacting with
 `Jexia's <http://jexia.com>`_ platform.
 
 .. image:: _static/example.gif
