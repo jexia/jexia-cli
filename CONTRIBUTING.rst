@@ -102,8 +102,8 @@ command:
 It will ensure the code meet the coding conventions, runs on every version on
 python and the documentation is properly generating.
 
-.. _official jexia-cli repository: https://github.com/jexia/jexia-cli-python
-.. _official bugtracker: https://github.com/jexia/jexia-cli-python/issues
+.. _official jexia-cli repository: https://github.com/jexia/jexia-cli
+.. _official bugtracker: https://github.com/jexia/jexia-cli/issues
 
 
 Updating Copyright
