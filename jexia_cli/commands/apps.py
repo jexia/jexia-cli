@@ -135,7 +135,7 @@ class Update(ProjectShowCommand):
         for opt in parsed_args.var:
             try:
                 key = opt[:opt.index('=')]
-                val = opt[opt.index('=')+1:]
+                val = opt[opt.index('=') + 1:]
             except Exception:
                 raise HTTPClientError('incorrect value for --var option, '
                                       'should be key=value')
