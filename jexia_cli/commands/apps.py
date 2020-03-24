@@ -131,10 +131,11 @@ class Update(ProjectShowCommand):
             raise HTTPClientError(
                 'application %s not found' % parsed_args.app)
         repo_url = parsed_args.repo or app['repo_url']
-        env_vars = app['env_vars']
+        env_vars = app.get('env_vars', {})
         for opt in parsed_args.var:
             try:
-                key, val = opt.split('=')
+                key = opt[:opt.index('=')]
+                val = opt[opt.index('=')+1:]
             except Exception:
                 raise HTTPClientError('incorrect value for --var option, '
                                       'should be key=value')
