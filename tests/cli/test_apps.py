@@ -5,7 +5,7 @@ import pytest
 from tests.cli import run_cmd
 
 
-APP_COLUMNS = ['id', 'repo_name', 'repo_url', 'env_vars', 'public_url']
+APP_COLUMNS = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars', 'public_url']
 DEPLOY_COLUMNS = ['id', 'app_id', 'info', 'status']
 PROJECT_ID = os.environ['JEXIA_CLI_TEST_PAID_PROJECT']
 _CREATED_RESOURCE = None
