@@ -32,6 +32,7 @@ def test_apps_integration(integration_teardown):
                    '-f=json',
                    '--project=%s' % PROJECT_ID,
                    '--repo=https://github.com/jexia/test-node-app.git',
+                   '--branch=master',
                    '--var=key1=val1',
                    '--var=key2=val2'])
     _CREATED_RESOURCE = app.get('id')
@@ -51,6 +52,7 @@ def test_apps_integration(integration_teardown):
                    '-f=json',
                    '--project=%s' % PROJECT_ID,
                    '--repo=https://github.com/jexia/test-node-fake.git',
+                   '--branch=master',
                    '--var=key1=',
                    '--var=key2=val3',
                    app['id']])
