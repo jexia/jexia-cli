@@ -19,7 +19,8 @@ class List(ProjectListCommand):
     List of apps
     '''
 
-    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars', 'public_url']
+    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
     _formatters = {
         'env_vars': lambda v: json.dumps(v),
     }
@@ -41,7 +42,8 @@ class Create(ProjectShowCommand):
     Create new app
     '''
 
-    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars', 'public_url']
+    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
     _formatters = {
         'env_vars': lambda v: json.dumps(v),
     }
@@ -101,7 +103,8 @@ class Update(ProjectShowCommand):
     Update application
     '''
 
-    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars', 'public_url']
+    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
     _formatters = {
         'env_vars': lambda v: json.dumps(v),
     }
