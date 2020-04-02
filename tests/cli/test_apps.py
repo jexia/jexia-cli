@@ -5,7 +5,8 @@ import pytest
 from tests.cli import run_cmd
 
 
-APP_COLUMNS = ['id', 'repo_name', 'repo_url', 'env_vars', 'public_url']
+APP_COLUMNS = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
 DEPLOY_COLUMNS = ['id', 'app_id', 'info', 'status']
 PROJECT_ID = os.environ['JEXIA_CLI_TEST_PAID_PROJECT']
 _CREATED_RESOURCE = None
@@ -32,6 +33,7 @@ def test_apps_integration(integration_teardown):
                    '-f=json',
                    '--project=%s' % PROJECT_ID,
                    '--repo=https://github.com/jexia/test-node-app.git',
+                   '--branch=master',
                    '--var=key1=val1',
                    '--var=key2=val2'])
     _CREATED_RESOURCE = app.get('id')
@@ -51,6 +53,7 @@ def test_apps_integration(integration_teardown):
                    '-f=json',
                    '--project=%s' % PROJECT_ID,
                    '--repo=https://github.com/jexia/test-node-fake.git',
+                   '--branch=master',
                    '--var=key1=',
                    '--var=key2=val3',
                    app['id']])

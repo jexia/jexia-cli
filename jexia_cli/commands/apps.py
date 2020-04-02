@@ -19,7 +19,8 @@ class List(ProjectListCommand):
     List of apps
     '''
 
-    columns = ['id', 'repo_name', 'repo_url', 'env_vars', 'public_url']
+    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
     _formatters = {
         'env_vars': lambda v: json.dumps(v),
     }
@@ -41,7 +42,8 @@ class Create(ProjectShowCommand):
     Create new app
     '''
 
-    columns = ['id', 'repo_name', 'repo_url', 'env_vars', 'public_url']
+    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
     _formatters = {
         'env_vars': lambda v: json.dumps(v),
     }
@@ -53,6 +55,11 @@ class Create(ProjectShowCommand):
             metavar='REPO',
             help='App\'s repository',
             required=True,
+        )
+        parser.add_argument(
+            '--branch',
+            metavar='BRANCH',
+            help='App\'s repository branch',
         )
         parser.add_argument(
             '--var',
@@ -74,13 +81,16 @@ class Create(ProjectShowCommand):
                 raise HTTPClientError('incorrect value for --var option, '
                                       'should be key=value')
             env_vars[key] = val
+        body = {
+            "env_vars": env_vars,
+            "repo_url": parsed_args.repo,
+        }
+        if parsed_args.branch:
+            body["repo_branch"] = parsed_args.branch
         result = self.app.client.request(
             method='POST',
             url='/project/%s/app' % parsed_args.project,
-            data={
-                "env_vars": env_vars,
-                "repo_url": parsed_args.repo,
-            }
+            data=body
         )
         if result:
             result['public_url'] = ('https://%s.%s'
@@ -93,7 +103,8 @@ class Update(ProjectShowCommand):
     Update application
     '''
 
-    columns = ['id', 'repo_name', 'repo_url', 'env_vars', 'public_url']
+    columns = ['id', 'repo_name', 'repo_url', 'repo_branch', 'env_vars',
+               'public_url']
     _formatters = {
         'env_vars': lambda v: json.dumps(v),
     }
@@ -104,6 +115,11 @@ class Update(ProjectShowCommand):
             '--repo',
             metavar='REPO',
             help='App\'s repository',
+        )
+        parser.add_argument(
+            '--branch',
+            metavar='BRANCH',
+            help='App\'s repository branch',
         )
         parser.add_argument(
             '--var',
@@ -147,13 +163,16 @@ class Update(ProjectShowCommand):
                                           'value or variable cannot be empty')
             else:
                 env_vars[key] = val
+        body = {
+            "env_vars": env_vars,
+            "repo_url": repo_url,
+        }
+        if parsed_args.branch:
+            body["repo_branch"] = parsed_args.branch
         result = self.app.client.request(
             method='PATCH',
             url='/project/%s/app/%s' % (parsed_args.project, parsed_args.app),
-            data={
-                "env_vars": env_vars,
-                "repo_url": repo_url,
-            }
+            data=body,
         )
         result['public_url'] = 'https://%s' % result['public_url']
         return self.setup_columns(result)
