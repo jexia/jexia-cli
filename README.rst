@@ -14,6 +14,9 @@ Jexia CLI
 .. image:: https://img.shields.io/pypi/pyversions/jexia-cli.svg
     :target: https://pypi.org/project/jexia-cli
     :alt: Supported Python versions
+.. image:: https://img.shields.io/badge/chat-on%20discord-7289da.svg?sanitize=true
+    :target: https://discord.gg/q54Q8GH
+    :alt: Chat on Discord
 
 This is the official Jexia CLI for interacting with Jexia platform.
 
