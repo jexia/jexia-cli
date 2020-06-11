@@ -37,6 +37,13 @@ def test_policies_integration(integration_teardown):
                        '--bucket=%s' % os.environ['JEXIA_CLI_TEST_AWS_BUCKET']
                        ])
     _TEARDOWN_RESOURCES.append({'res': 'fileset', 'args': [fileset.get('id')]})
+    # create new userset
+    userset = run_cmd(['userset create',
+                       '-f=json',
+                       '--project=%s' % PROJECT_ID,
+                       '--email=test-integration-policy@example.com',
+                       '--password=test'])
+    _TEARDOWN_RESOURCES.append({'res': 'userset', 'args': [userset.get('id')]})
     # create new API key
     key = run_cmd(['key create',
                    '-f=json',
@@ -58,7 +65,7 @@ def test_policies_integration(integration_teardown):
                       '--action=read',
                       '--action=delete',
                       '--action=create',
-                      '--userset=ANY',
+                      '--userset=%s' % userset['id'],
                       '--api-key=%s' % key['key'],
                       '--resource=%s' % dataset['id'],
                       '--resource=%s' % fileset['id']])
@@ -68,7 +75,7 @@ def test_policies_integration(integration_teardown):
     assert 'dataset: %s' % dataset['id'] in policy['resources']
     assert 'fileset: %s' % fileset['id'] in policy['resources']
     assert 'API key: %s' % key['key'] in policy['subjects']
-    assert 'userset: ANY' in policy['subjects']
+    assert 'Userset: %s' % userset['id'] in policy['subjects']
     assert 'delete' in policy['actions']
     assert 'create' in policy['actions']
     assert 'read' in policy['actions']
@@ -85,7 +92,7 @@ def test_policies_integration(integration_teardown):
     assert 'dataset: %s' % dataset['id'] not in policy['resources']
     assert 'fileset: %s' % fileset['id'] in policy['resources']
     assert 'API key: %s' % key['key'] in policy['subjects']
-    assert 'userset: ANY' not in policy['subjects']
+    assert 'Userset: %s' % userset['id'] not in policy['subjects']
     assert 'delete' not in policy['actions']
     assert 'create' not in policy['actions']
     assert 'read' in policy['actions']

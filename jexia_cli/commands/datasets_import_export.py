@@ -10,6 +10,7 @@ from jexia_sdk.http import HTTPClientError
 
 
 LOG = logging.getLogger(__name__)
+PAGINATION_LIMIT = 10
 
 
 class Export(ProjectCommand):
@@ -75,17 +76,16 @@ class Export(ProjectCommand):
             # create policy for API key
             policy = self.app.client.request(
                 method='POST',
-                url='/management/%s/rakshak/' % parsed_args.project,
+                url='/management/%s/rakshak/policies/' % parsed_args.project,
                 data={'description': 'jexia-cli-dataset-export',
                       'subjects': ['apk:%s' % api_key['key']],
                       'resources': parsed_args.dataset,
-                      'actions': ['read'],
-                      'effect': 'allow'}
+                      'actions': {'read': []}}
             )
             self.cleanup_resources.append({
                 'method': 'DELETE',
-                'url': '/management/%s/rakshak/%s' % (parsed_args.project,
-                                                      policy['id'])})
+                'url': ('/management/%s/rakshak/policies/%s'
+                        % (parsed_args.project, policy['id']))})
             # auth in consumption API
             self.app.consumption_client.auth_consumption(
                 project=parsed_args.project,
@@ -133,8 +133,16 @@ class Export(ProjectCommand):
 
     def _prepare_data_dump(self, dataset):
         columns = [c['name'] for c in dataset['inputs']]
-        data = self.app.consumption_client.request(
-            method='GET', url='/ds/%s' % dataset['name'])
+        data = []
+        page = 0
+        while True:
+            res = self.app.consumption_client.request(
+                method='GET', url='/ds/%s' % dataset['name'],
+                range='{"limit": %s, "offset": %s}' % (PAGINATION_LIMIT, page))
+            if not res:
+                break
+            data += res
+            page += PAGINATION_LIMIT
         return [{k: v for k, v in d.items() if k in columns} for d in data]
 
 
@@ -193,17 +201,16 @@ class Import(ProjectCommand):
             # create policy for API key
             policy = self.app.client.request(
                 method='POST',
-                url='/management/%s/rakshak/' % parsed_args.project,
+                url='/management/%s/rakshak/policies/' % parsed_args.project,
                 data={'description': 'jexia-cli-dataset-import',
                       'subjects': ['apk:%s' % api_key['key']],
                       'resources': [d['id'] for d in dump],
-                      'actions': ['read', 'create'],
-                      'effect': 'allow'}
+                      'actions': {'read': [], 'create': []}}
             )
             self.cleanup_resources.append({
                 'method': 'DELETE',
-                'url': '/management/%s/rakshak/%s' % (parsed_args.project,
-                                                      policy['id'])})
+                'url': ('/management/%s/rakshak/policies/%s'
+                        % (parsed_args.project, policy['id']))})
             # auth in consumption API
             self.app.consumption_client.auth_consumption(
                 project=parsed_args.project,

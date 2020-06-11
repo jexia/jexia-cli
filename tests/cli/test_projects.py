@@ -157,6 +157,8 @@ def integration_teardown():
 
 
 @pytest.mark.integration
+@pytest.mark.skip(
+    reason="This test skipped because no way to delete project")
 def test_projects_integration(integration_teardown):
     global _CREATED_RESOURCE
     # get current projects

@@ -21,6 +21,9 @@ def integration_teardown():
 
 
 @pytest.mark.integration
+@pytest.mark.skip(
+    reason=("This test skipped because we have issue related to UTF-8 encoding"
+            " in application hosting"))
 def test_apps_integration(integration_teardown):
     global _CREATED_RESOURCE
     # get current apps
@@ -33,7 +36,7 @@ def test_apps_integration(integration_teardown):
                    '-f=json',
                    '--project=%s' % PROJECT_ID,
                    '--repo=https://github.com/jexia/test-node-app.git',
-                   '--branch=master',
+                   '--branch=runme-dockerfile',
                    '--var=key1=val1',
                    '--var=key2=val2'])
     _CREATED_RESOURCE = app.get('id')
@@ -53,7 +56,7 @@ def test_apps_integration(integration_teardown):
                    '-f=json',
                    '--project=%s' % PROJECT_ID,
                    '--repo=https://github.com/jexia/test-node-fake.git',
-                   '--branch=master',
+                   '--branch=runme-dockerfile',
                    '--var=key1=',
                    '--var=key2=val3',
                    app['id']])
