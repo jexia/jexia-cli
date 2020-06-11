@@ -3,6 +3,16 @@
 Installation
 ============
 
+Mac OS
+~~~~~~~~~~~~
+
+Install Jexia CLI with ``brew``:
+
+.. code-block:: console
+
+    brew tap jexia/cask
+    brew install jexia-cli
+
 Unix-like OS
 ~~~~~~~~~~~~
 

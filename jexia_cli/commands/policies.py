@@ -10,10 +10,10 @@ from jexia_sdk.http import HTTPClientError
 
 
 LOG = logging.getLogger(__name__)
-USERSET_ANY = 'ANY'
 DISPLAY_SUBJECT_TYPES = {
-    'ums': 'userset',
+    'ums': 'Userset',
     'apk': 'API key',
+    'nsp': 'Namespace',
 }
 ALLOWED_ACTIONS = ['delete', 'update', 'create', 'read']
 
@@ -22,8 +22,6 @@ def format_subjects(subjects):
     result = list()
     for sub in subjects:
         type, uuid = sub.split(':')
-        if uuid == u'\u003c.*\u003e':
-            uuid = USERSET_ANY
         result.append('%s: %s' % (DISPLAY_SUBJECT_TYPES[type], uuid))
     return '\n'.join(result)
 
@@ -68,15 +66,12 @@ class BasePolicyCommand(object):
         if not ums:
             raise HTTPClientError('Userset scheme not found')
         subjects = list()
-        for userset in parsed_args.userset:
-            if userset == USERSET_ANY:
-                subjects.append('ums:<.*>')
-            else:
-                subjects.append('ums:%s' % userset)
+        subjects += ['ums:%s' % k for k in parsed_args.userset]
         subjects += ['apk:%s' % k for k in parsed_args.api_key]
+        subjects += ['nsp:%s' % k for k in parsed_args.namespace]
         if not subjects:
             raise HTTPClientError('at least one option of --userset, '
-                                  '--api-key required')
+                                  '--api-key, --namespace required')
         return subjects
 
 
@@ -97,7 +92,7 @@ class List(ProjectListCommand, BasePolicyCommand):
     def take_action(self, parsed_args):
         result = self.app.client.request(
             method='GET',
-            url='/management/%s/rakshak/' % parsed_args.project)
+            url='/management/%s/rakshak/policies/' % parsed_args.project)
         self._parse_policy_result(parsed_args.project, result)
         return self.setup_columns(result or [])
 
@@ -136,9 +131,16 @@ class Create(ProjectShowCommand, BasePolicyCommand):
             '--userset',
             metavar='USERSET',
             action='append',
-            help=('Userset that should has access to manage resources.'
-                  'Can be UUID of userset or "%s" (as alias for "All '
-                  'users"). This is repeatable option.' % USERSET_ANY),
+            help=('UUID of Userset that should has access to manage resources.'
+                  'This is repeatable option.'),
+            default=[],
+        )
+        parser.add_argument(
+            '--namespace',
+            metavar='NAMESPACE',
+            action='append',
+            help=('UUID of Namespace that should has access to manage '
+                  'resources. This is repeatable option.'),
             default=[],
         )
         parser.add_argument(
@@ -163,12 +165,11 @@ class Create(ProjectShowCommand, BasePolicyCommand):
     def take_action(self, parsed_args):
         result = self.app.client.request(
             method='POST',
-            url='/management/%s/rakshak/' % parsed_args.project,
+            url='/management/%s/rakshak/policies/' % parsed_args.project,
             data={'description': parsed_args.description,
                   'subjects': self._parse_subjects(parsed_args),
                   'resources': parsed_args.resource,
-                  'actions': parsed_args.action,
-                  'effect': 'allow'})
+                  'actions': {a: [] for a in parsed_args.action}})
         self._parse_policy_result(parsed_args.project, [result])
         return self.setup_columns(result)
 
@@ -207,16 +208,23 @@ class Update(ProjectShowCommand, BasePolicyCommand):
             '--userset',
             metavar='USERSET',
             action='append',
-            help=('Userset that should has access to manage resources.'
-                  'Can be UUID of userset or "%s" (as alias for "All '
-                  'users"). This is repeatable option.' % USERSET_ANY),
+            help=('UUID of Userset that should has access to manage resources.'
+                  'This is repeatable option.'),
+            default=[],
+        )
+        parser.add_argument(
+            '--namespace',
+            metavar='NAMESPACE',
+            action='append',
+            help=('UUID of Namespace that should has access to manage '
+                  'resources. This is repeatable option.'),
             default=[],
         )
         parser.add_argument(
             '--api-key',
             metavar='APY_KEY',
             action='append',
-            help=('UUID of API kye that should has access to manage resources.'
+            help=('UUID of API key that should has access to manage resources.'
                   'This is repeatable option.'),
             default=[],
         )
@@ -239,14 +247,13 @@ class Update(ProjectShowCommand, BasePolicyCommand):
     def take_action(self, parsed_args):
         result = self.app.client.request(
             method='PUT',
-            url=('/management/%s/rakshak/%s'
+            url=('/management/%s/rakshak/policies/%s'
                  % (parsed_args.project, parsed_args.policy)),
             data={'id': parsed_args.policy,
                   'description': parsed_args.description,
                   'subjects': self._parse_subjects(parsed_args),
                   'resources': parsed_args.resource,
-                  'actions': parsed_args.action,
-                  'effect': 'allow'})
+                  'actions': {a: [] for a in parsed_args.action}})
         self._parse_policy_result(parsed_args.project, [result])
         return self.setup_columns(result)
 
@@ -269,5 +276,5 @@ class Delete(ProjectCommand):
     def take_action(self, parsed_args):
         self.app.client.request(
             method='DELETE',
-            url='/management/%s/rakshak/%s' % (parsed_args.project,
-                                               parsed_args.policy))
+            url='/management/%s/rakshak/policies/%s' % (parsed_args.project,
+                                                        parsed_args.policy))
