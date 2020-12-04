@@ -45,7 +45,7 @@ class Export(ProjectCommand):
         parser.add_argument(
             'dataset',
             metavar="DATASET_ID",
-            nargs='+',
+            nargs='*',
             help='UUID of dataset to export',
         )
         return parser
@@ -58,10 +58,13 @@ class Export(ProjectCommand):
             method='GET',
             url='/management/%s/mimir/ds' % parsed_args.project)
         res_datasets = [r['id'] for r in result]
-        for ds in parsed_args.dataset:
-            if ds not in res_datasets:
-                raise HTTPClientError('Dataset %s not found'
-                                      % parsed_args.dataset)
+        if not parsed_args.dataset:
+            parsed_args.dataset = res_datasets
+        else:
+            for ds in parsed_args.dataset:
+                if ds not in res_datasets:
+                    raise HTTPClientError('Dataset %s not found'
+                                          % parsed_args.dataset)
         if parsed_args.with_data:
             # create API key for data exporting
             api_key = self.app.client.request(
